@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sxt.model.User" table="user">
+		<!-- ID的配置 -->
+		<id name="id" type="java.lang.Integer" column="user_id">
+			<generator class="native"/>
+		</id>
+		<!-- 其它属性的配置 -->
+		<property name="name" type="java.lang.String">
+			<column name="user_name"></column>
+		</property>
+		<property name="pwd" type="java.lang.String">
+			<column name="user_pwd"></column>
+		</property>
+		<property name="desc" type="java.lang.String">
+			<column name="user_desc"></column>
+		</property>
+		<property name="status" type="java.lang.Integer">
+			<column name="user_status"></column>
+		</property>
+		<!-- 一对多关系 -->
+		<set name="addrSet" table="address">
+			<key column="user_id"></key>
+			<one-to-many class="com.sxt.model.Address"/>
+		</set>
+	</class>
+</hibernate-mapping>

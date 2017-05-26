@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+  
+ 
+ <struts>
+	
+	
+	<!-- 配置改变后重新加载 -->
+ 	<constant name="struts.configuration.xml.reload" value="true"/> 
+ 	
+ 	
+	<package name="test" extends="struts-default">
+
+	
+		<!-- 定义拦截器 -->
+		<interceptors>
+			<!-- 定义权限和登录的拦截器 -->
+			<interceptor name="authInter" class="com.sxt.interceptor.AuthInterceptor"></interceptor>
+			<interceptor name="interceptor1" class="com.sxt.interceptor.TestInterceptor1"></interceptor>
+			<interceptor name="logger" class="com.opensymphony.xwork2.interceptor.LoggingInterceptor"/>
+			<interceptor name="timer" class="com.opensymphony.xwork2.interceptor.TimerInterceptor"/>
+			
+			<interceptor name="log" class="com.sxt.interceptor.LogInterceptor"></interceptor>
+			
+			<!-- 定义自已的拦截器栈 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="authInter"></interceptor-ref>
+				<interceptor-ref name="interceptor1"></interceptor-ref>
+				<interceptor-ref name="logger"></interceptor-ref>
+				<interceptor-ref name="timer"></interceptor-ref>
+				<interceptor-ref name="log"></interceptor-ref>
+				<!-- 如果你定义自已的拦截器，还想用struts2提供的功能就必须显示的添加defaultStack的引用 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+
+		<!-- 定义一个默认使用的拦截器栈  -->
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+		
+		<global-results>
+			<result name="login">login.jsp</result>
+		</global-results>
+		
+		<action name="test" class="com.sxt.web.TestAction">
+			<result name="other">other.jsp</result>
+		</action>
+		
+		<action name="test2" class="com.sxt.web.TestAction2">
+			<result name="other">other.jsp</result>
+		
+		</action>
+		<!-- 用户登录业务类 -->
+		<action name="user" class="com.sxt.web.UserAction">
+			<result name="success">index.jsp</result>
+		</action>
+	</package>
+ 
+ </struts>

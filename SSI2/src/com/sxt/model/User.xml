@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    
+<sqlMap>
+	
+	<!-- 配置别名 -->
+	<typeAlias alias="user" type="com.sxt.model.User"/>
+	
+	<!-- 配置保存SQL -->
+	<insert id="saveUser" parameterClass="user">
+		insert into user(user_name,user_pwd) values(#userName#,#userPwd#)
+	</insert>
+	
+	<!-- 查询+分页 -->
+	<select id="findUserList" resultClass="user" parameterClass="user">
+			
+			select user_id as userId,user_name as userName,user_pwd as userPwd
+			from user
+			<dynamic prepend="where">
+				<isNotEmpty property="userName" prepend="and">
+					user_name like #userName#
+				</isNotEmpty>
+			</dynamic>
+			limit #pageUtil.startRow#,#pageUtil.pageSize#
+	</select>
+	
+	<!-- 查询总行数 -->
+	<select id="findUserListCount" resultClass="int" parameterClass="user">
+		select count(user_id)
+			from user
+			<dynamic prepend="where">
+				<isNotEmpty property="userName" prepend="and">
+					user_name like #userName#
+				</isNotEmpty>
+			</dynamic>
+	</select>
+	
+</sqlMap>

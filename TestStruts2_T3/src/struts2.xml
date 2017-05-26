@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+  
+ 
+ <struts>
+	
+	<!-- 配置改变后重新加载 -->
+ 	<constant name="struts.configuration.xml.reload" value="true"/> 
+ 	
+	<package name="test" extends="struts-default">
+	
+	
+		<!-- 定义拦截器 -->
+		<interceptors>
+			<interceptor name="interceptor1" class="com.sxt.interceptor.TestInterceptor1"></interceptor>
+			<interceptor name="logger" class="com.opensymphony.xwork2.interceptor.LoggingInterceptor"/>
+		</interceptors>
+		
+		
+		<action name="test" class="com.sxt.web.TestAction">
+			
+			<!-- 引用自已的 -->
+			<interceptor-ref name="interceptor1"></interceptor-ref>
+			<!-- 启用日志记录器 -->
+			<interceptor-ref name="logger"></interceptor-ref>
+			<result name="index">index.jsp</result>
+		</action>
+		
+		<action name="test2" class="com.sxt.web.TestAction2">
+			<!-- 引用 -->
+			<interceptor-ref name="interceptor1"></interceptor-ref>
+			<!-- 启用日志记录器 -->
+			<interceptor-ref name="logger"></interceptor-ref>
+			<result name="index">index.jsp</result>
+		</action>
+	</package>
+ 
+ </struts>

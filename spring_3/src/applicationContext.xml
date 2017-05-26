@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+		
+	<!-- spring2.0x aop配置 -->
+	<aop:config>
+		<!-- ref="引用织入的对象"  -->
+		<aop:aspect id="tx" ref="transactionHandler">
+			<!-- 切入点表达式 ( 返回类型  包名.类名.方法名(任意参数)) id="切入点的名字"-->
+			<aop:pointcut expression="execution(* com.sxt.service.*.*(..))" id="txPointCut"/>
+			<!--  method="方法执行前的需要调用【织入对象中的方法】" pointcut-ref="引用需要切入的点"  -->
+			<aop:before method="begins" pointcut-ref="txPointCut"/>
+			<aop:after method="end" pointcut-ref="txPointCut"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- 目标类 -->
+	<bean id="userService" class="com.sxt.service.impl.UserServiceImpl">
+	</bean>
+	
+	<!-- 目标类 -->
+	<bean id="cardService" class="com.sxt.service.impl.CardServiceImpl">
+	</bean>
+	
+	<!-- 要织入的对象 -->
+	<bean id="transactionHandler" class="com.sxt.util.TransactionHandler">
+	</bean>
+			
+</beans>

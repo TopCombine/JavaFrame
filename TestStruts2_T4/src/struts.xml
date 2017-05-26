@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+  
+ 
+ <struts>
+	
+	
+	<!-- 配置改变后重新加载 -->
+ 	<constant name="struts.configuration.xml.reload" value="true"/> 
+ 	
+	<package name="test" extends="struts-default">
+		<action name="test1" class="com.sxt.web.TestAction">
+			<result>ognl_3.jsp</result>
+		</action>
+	</package>
+ 
+ </struts>

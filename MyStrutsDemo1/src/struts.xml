@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<struts>
+	<!-- 业务所需的所有的数据封装对象 -->
+	<forms>
+		<form name="ProductForm" class="com.sxt.mystruts.model.Product"/>
+		<form name="UserForm" class="com.sxt.mystruts.model.User"/>
+	</forms>
+	
+	<actions>
+		<!-- 产品添加业务处理action -->
+		<action path="/addproduct" 
+		name="ProductForm"
+		class="com.sxt.mystruts.web.ProductAction"
+		>
+		</action>
+		
+		<!-- 用户添加业务处理action -->
+		<action path="/adduser"
+			name="UserForm"
+		class="com.sxt.mystruts.web.UserAction"
+		/>
+	</actions>
+	
+</struts>

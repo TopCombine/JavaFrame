@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd"> 
+<beans>
+	
+	
+	
+	<!-- 前置通知 -->
+	<bean id="beforeAdvice" class="com.sxt.advice.TestBeforeAdvice"></bean>
+	<!-- 后置通知 -->
+	<bean id="afterAdvice" class="com.sxt.advice.TestAfterAdvice"></bean>
+	<!-- 环绕通知 -->
+	<bean id="compareAdvice" class="com.sxt.advice.TestCompareAdvice"></bean>
+	<!-- 目标对象 -->
+	<bean id="userService" class="com.sxt.service.impl.UserServiceImpl"></bean>
+	<!-- 目标对象 -->
+	<bean id="cardService" class="com.sxt.service.impl.CardServiceImpl"></bean>
+	
+	<!-- 代理 -->
+	<bean id="userServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<!-- 代理接口的全路径 -->
+		<property name="proxyInterfaces">
+			<value>com.sxt.service.IUserService</value>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>beforeAdvice</value>
+				<value>afterAdvice</value>
+				<value>compareAdvice</value>
+			</list>
+		</property>
+		<!-- 目标 -->
+		<property name="target">
+			<ref bean="userService"/>
+		</property>
+	</bean>
+	
+	<!-- 代理 -->
+	<bean id="cardServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<!-- 代理接口的全路径 -->
+		<property name="proxyInterfaces">
+			<value>com.sxt.service.ICardService</value>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>beforeAdvice</value>
+				<value>afterAdvice</value>
+				<value>compareAdvice</value>
+			</list>
+		</property>
+		<!-- 目标 -->
+		<property name="target">
+			<ref bean="cardService"/>
+		</property>
+	</bean>
+
+</beans>

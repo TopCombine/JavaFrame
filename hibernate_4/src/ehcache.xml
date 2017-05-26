@@ -1,0 +1,11 @@
+<ehcache>
+<diskStore path="d:/cache"/>
+    <defaultCache   
+            maxElementsInMemory="500"   
+            eternal="false"
+            overflowToDisk="true"   
+            timeToLiveSeconds="180"
+            />
+</ehcache>
+
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+  "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+  "http://struts.apache.org/dtds/struts-2.0.dtd">
+  
+ 
+ <struts>
+ 	
+ 	
+ 	
+ 	<!-- 逻辑单元 -->
+ 	<package name="base" extends="struts-default">
+ 		<!-- 用户的action -->
+ 		<action name="user" class="com.sxt.struts2.web.UserAction">
+ 			<result name="list_user">jsp/user/list_user.jsp</result>
+ 			<result name="upate_user">jsp/user/update_user.jsp</result>
+ 			<result name="detail_user">jsp/user/detail_user.jsp</result>
+ 		</action>
+ 		
+ 		<action name="upload" class="com.sxt.struts2.web.FileUploadAction">
+ 			<result name="success">jsp/user/upload_success.jsp</result>
+ 		</action>
+ 	</package>
+ 
+ </struts>

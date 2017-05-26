@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.sxt.model.Card" table="card">
+		<!-- ID的配置 -->
+		<id name="cardId" type="int" column="card_id">
+			<!-- 主键不是自已生成的，是来自于一个属性对象的ID：外键 -->
+			<generator class="foreign">
+				<param name="property">user</param>
+			</generator>
+		</id>
+		<!-- 其它属性的配置 -->
+		<property name="cardNo" type="string">
+			<column name="card_no"></column>
+		</property>
+		
+		<!-- 一对一主键关联 -->
+		<one-to-one name="user" class="com.sxt.model.User" cascade="all"></one-to-one>
+		
+	</class>
+</hibernate-mapping>

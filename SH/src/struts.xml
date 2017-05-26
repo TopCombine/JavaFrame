@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="base" extends="struts-default">
+		<action name="user" class="com.sxt.web.UserAction">
+			<result name="user_list">/jsp/user/user_list.jsp</result>
+			<result name="user_list_action" type="redirect">user!findUserList.action</result>
+			<result name="user_update">/jsp/user/user_update.jsp</result>
+			<result name="user_detail">/jsp/user/user_detail.jsp</result>
+		</action>
+	</package>
+</struts>    

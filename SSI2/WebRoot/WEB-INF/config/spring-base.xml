@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:aop="http://www.springframework.org/schema/aop"
+ 	  xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 组装并织入 -->
+	<aop:config>
+		<aop:pointcut id="daoMethods"
+			expression="execution(* com.sxt.dao.*.*(..))" />
+		<!-- 织入 -->
+		<aop:advisor advice-ref="txAdvice"
+			pointcut-ref="daoMethods" />
+	</aop:config>
+
+
+	<!-- 定义事务的规则 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+			<tx:attributes>
+			<!-- 对get/load/search开头的方法要求只读事务 -->
+			<tx:method name="get*" propagation="SUPPORTS"
+				read-only="true" />
+			<tx:method name="load*" propagation="SUPPORTS"
+				read-only="true" />
+			<tx:method name="find*" propagation="SUPPORTS"
+				read-only="true" />
+			<!--如果当前在事务就用当前的，如果没有就启动一个新的事务-->
+			<tx:method name="save*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="dataSource"></ref>
+		</property>
+	</bean>
+	
+	<!-- 配置ibatis客户端 -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource"/>
+		</property>
+		<property name="configLocation">
+			<value>/WEB-INF/config/sqlMapConfig.xml</value>
+		</property>
+	</bean>
+	
+
+	<!-- 数据源 -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/test_hibernate?useUnicode=true&amp;characterEncoding=utf-8">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	
+	
+	</beans>

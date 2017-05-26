@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+"http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="card">
+	
+	<typeAlias alias="card" type="com.sxt.model.Card"/>
+	
+	<!-- 查找用户的映射SQL  resultClass="card" -->
+	<select id="findCardById" resultClass="card" parameterClass="java.lang.Integer">
+		SELECT card_id as cardId,card_no as cardNo from card
+		where card_id=#value#
+	</select>
+	
+	<!-- 
+	<select id="findUserById" resultClass="com.sxt.model.User" parameterClass="java.lang.Integer">
+		SELECT user_id as userId,user_name as userName,user_pwd as userPwd,user_desc userdesc from user
+		where user_id=#value#
+	</select>
+	 -->
+
+</sqlMap>

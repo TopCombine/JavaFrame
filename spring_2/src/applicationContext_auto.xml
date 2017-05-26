@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd"> 
+<beans>
+	
+	
+	
+	<!-- 前置通知 -->
+	<bean id="beforeAdvice" class="com.sxt.advice.TestBeforeAdvice"></bean>
+	<!-- 后置通知 -->
+	<bean id="afterAdvice" class="com.sxt.advice.TestAfterAdvice"></bean>
+	<!-- 环绕通知 -->
+	<bean id="compareAdvice" class="com.sxt.advice.TestCompareAdvice"></bean>
+	<!-- 目标对象 -->
+	<bean id="userService" class="com.sxt.service.impl.UserServiceImpl"></bean>
+	<!-- 目标对象 -->
+	<bean id="cardService" class="com.sxt.service.impl.CardServiceImpl"></bean>
+	
+	<!-- 按方法名进行拦截  1 -->
+	<bean id="methodMatchAdvice" 
+		class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+			<!-- 可以指定多个方法       也可以单个方法 就用这个mappedName属性 -->
+		<property name="mappedNames">
+			<list>
+				<value>save*</value>
+				<value>get*</value>
+			</list>
+		</property>
+		<property name="advice">
+			<ref bean="beforeAdvice"/>
+		</property>
+	</bean>
+	
+	<!-- 按方法名进行拦截  2-->
+	<bean id="methodMatchAdvice2" 
+		class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+			<!-- 可以指定多个方法       也可以单个方法 就用这个mappedName属性 -->
+		<property name="mappedNames">
+			<list>
+				<value>save*</value>
+				<value>get*</value>
+			</list>
+			
+		</property>
+		<property name="advice">
+			<ref bean="afterAdvice"/>
+		</property>
+	</bean>
+	
+	<!-- 按名字自动代理，一次可以指定多个业务类 -->
+	<bean  class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>userService</value>
+				<value>cardService</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>methodMatchAdvice</value>
+				<value>methodMatchAdvice2</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

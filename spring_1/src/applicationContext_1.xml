@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- 在这里组装对象 --><!-- 可以指定初始化和销毁的方法 -->
+	<bean id="user" class="com.sxt.model.User" init-method="init" destroy-method="destory">
+		<property name="userName">
+			<value>张三</value>
+		</property>
+		<property name="userPwd" value="520250"/>
+		<property name="userAge" value="18"></property>
+		<!-- 注入另外一个对象 -->
+		<property name="card">
+			<ref bean="card"/>
+		</property>
+	</bean>
+	
+	<!-- 身份证对象 -->
+	<!-- 用set方法给值 -->
+	<!-- 
+	<bean id="card" class="com.sxt.model.Card">
+		<property name="cardId" value="1"></property>
+		<property name="cardNo" value="123456"></property>
+	</bean>
+	 -->
+	<!-- 构造方法给值 -->
+	<bean id="card" class="com.sxt.model.Card">
+		<constructor-arg index="1">
+			<value>ACB</value>
+		</constructor-arg>
+		<constructor-arg index="0">
+			<value>14</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="collection" class="com.sxt.model.CollectionBean">
+		<property name="list">
+			<list>
+				<value>志鸡肉</value>
+				<value>江江不用功，老大想死了</value>
+				<value>江江爱志鸡肉</value>
+				<ref bean="card"/>
+			</list>
+		</property>
+		<property name="set">
+			<set>
+				<value>set_1</value>
+				<value>set_2</value>
+				<value>set_2</value>
+				<value>set_3</value>
+			</set>
+		</property>
+		<property name="map">
+			<map>
+				<entry>
+					<key>
+						<value>key1</value>
+					</key>
+					<value>value1</value>
+				</entry>
+				<entry>
+					<key>
+						<value>key2</value>
+					</key>
+					<value>value2</value>
+				</entry>
+				<entry>
+					<key>
+						<value>key3</value>
+					</key>
+					<value>value3</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	
+</beans>

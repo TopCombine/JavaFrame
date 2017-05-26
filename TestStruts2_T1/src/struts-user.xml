@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+  "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+  "http://struts.apache.org/dtds/struts-2.0.dtd">
+  
+ 
+ <struts>
+  	<package name="test" extends="struts-default">
+ 		<!-- 业务处理类 action name="访问路径" class="业务处理类" type="redirect"表示重定向 默认是转发 result=定义跳转-->
+ 		<action name="user"   class="com.sxt.struts2.web.UserAction">
+ 			<result name="ind" >index.jsp</result>
+ 		</action>
+ 	</package> 
+ </struts>

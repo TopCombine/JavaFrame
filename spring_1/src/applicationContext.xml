@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	
+	<bean id="userService" class="com.sxt.service.impl.UserServiceImpl"></bean>
+	
+	<bean id="user" class="com.sxt.model.User" autowire="byType">
+		<property name="userName">
+			<value>张国老</value>
+		</property>
+	</bean>
+	
+	<bean id="cards" class="com.sxt.model.Card">
+		<property name="cardNo">
+			<value>123456</value>
+		</property>
+	</bean>
+
+	
+</beans>

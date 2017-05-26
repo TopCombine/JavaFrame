@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	
+	<!-- 告诉struts 要找action的实例就到spring容器中找
+	<constant name="struts.ObjectFactory" value="spring"></constant>
+	-->
+	
+	<include file="../config/user/struts-user.xml"></include>
+	
+</struts>    
